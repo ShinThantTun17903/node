@@ -71,32 +71,31 @@ app.post("/collections/:collectionName", async (req, res, next) => {
   }
 });
 
-//post method for order
-// app.post("/collections/orders", async (req, res, next) => {
-//   try {
-//     const { firstName, lastName, email, phone, address, city, zipCode } = req.body;
+// post method for order
+app.post("/collections/orders", async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, phone, address, city, zipCode } = req.body;
 
-//     // Create an order document based on the form data
-//     const order = {
-//       firstName,
-//       lastName,
-//       email,
-//       phone,
-//       address,
-//       city,
-//       zipCode,
-//       createdAt: new Date() // Automatically add the current date/time
-//     };
+    // Create an order document based on the form data
+    const order = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      address,
+      city,
+      zipCode,
+    };
 
-//     // Insert the order into the "orders" collection
-//     const result = await req.collection.insertOne(order);
+    // Insert the order into the "orders" collection
+    const result = await req.collection.insertOne(order);
 
-//     // Send a success response
-//     res.status(201).send({ msg: "Order created successfully", orderId: result.insertedId });
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    // Send a success response
+    res.status(201).send({ msg: "Order created successfully", orderId: result.insertedId });
+  } catch (err) {
+    next(err);
+  }
+});
 
 
 app.put("/collections/:collectionName/:id", async (req, res, next) => {
