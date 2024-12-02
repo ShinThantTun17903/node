@@ -91,7 +91,7 @@ app.post("/collections/orders", async (req, res, next) => {
     const result = await req.collection.insertOne(order);
 
     // Send a success response
-    res.status(201).send({ msg: "Order created successfully", orderId: result.insertedId });
+    res.status(201).send({ msg: "Order created successfully", _id: result.insertedId });
   } catch (err) {
     next(err);
   }
