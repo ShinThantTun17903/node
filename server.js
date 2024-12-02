@@ -9,7 +9,6 @@ const app = express();
 let propertiesPath = path.resolve(__dirname, "config/db.properties");
 let properties = propertiesReader(propertiesPath);
 
-// Database Configuration
 const dbPrefix = properties.get("db.prefix");
 const dbUsername = encodeURIComponent(properties.get("db.user"));
 const dbPwd = encodeURIComponent(properties.get("db.pwd"));
@@ -20,12 +19,10 @@ const uri = `${dbPrefix}${dbUsername}:${dbPwd}${dbUrl}${dbParams}`;
 
 let db;
 
-// Middleware Setup
 app.use(morgan("short"));
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
 async function connectToDatabase() {
   try {
     const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
@@ -38,13 +35,11 @@ async function connectToDatabase() {
   }
 }
 
-// Middleware to set collection
 app.param("collectionName", function (req, res, next, collectionName) {
   req.collection = db.collection(collectionName);
   next();
 });
 
-// Routes
 app.get("/", (req, res) => {
   res.send("Welcome! Select a collection, e.g., /collections/Lessons");
 });
